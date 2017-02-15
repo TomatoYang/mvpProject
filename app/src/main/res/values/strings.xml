@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">retrofit-ok-rx</string>
+    <string name="title_login">登录</string>
+    <string name="title_photo">照片</string>
+    <string name="open_drawer">open drawer</string>
+    <string name="close_drawer">close drawer</string>
+    <string name="news">新闻</string>
+</resources>

@@ -24,6 +24,10 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Ba
         inflater = LayoutInflater.from(context);
     }
 
+    public List<T> getList() {
+        return list;
+    }
+
     @Override
     public BaseRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new BaseRecyclerViewHolder(

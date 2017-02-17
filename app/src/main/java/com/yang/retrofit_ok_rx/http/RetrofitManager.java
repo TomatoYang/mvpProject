@@ -55,7 +55,7 @@ public class RetrofitManager {
         @Override
         public Response intercept(Chain chain) throws IOException {
             Request request = chain.request();
-//            Log.e("请求接口", request.url().toString());
+            Log.e("请求接口", request.url().toString());
             if (!NetUtil.isConnected(App.getApplication())) {
                 Log.e(TAG, "没有网络连接");
                 request.newBuilder().cacheControl(CacheControl.FORCE_CACHE).build();

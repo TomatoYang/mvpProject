@@ -20,7 +20,7 @@ public class EventBus {
 
     private ConcurrentMap<Object,List<Subject>> map;
 
-    public static EventBus getInstance() {
+    public static EventBus getDefault() {
         if (instance == null) {
             synchronized (EventBus.class) {
                 if (instance == null) {

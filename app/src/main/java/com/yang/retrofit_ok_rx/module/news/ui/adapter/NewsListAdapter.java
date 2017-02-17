@@ -4,11 +4,11 @@ import android.content.Context;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.yang.retrofit_ok_rx.R;
 import com.yang.retrofit_ok_rx.base.BaseRecyclerViewAdapter;
 import com.yang.retrofit_ok_rx.base.BaseRecyclerViewHolder;
 import com.yang.retrofit_ok_rx.bean.NeteastNewsSummary;
+import com.yang.retrofit_ok_rx.http.ImageLoader;
 
 import java.util.List;
 
@@ -35,11 +35,13 @@ public class NewsListAdapter extends BaseRecyclerViewAdapter<NeteastNewsSummary>
         TextView digest = holder.getViewById(R.id.tv_news_digest);
         TextView time = holder.getViewById(R.id.tv_news_ptime);
 
-        Glide.with(context)
+        /*Glide.with(context)
                 .load(summary.imgsrc)
                 .placeholder(R.drawable.ic_loading)
                 .error(R.drawable.ic_fail)
-                .into(iv);
+                .into(iv);*/
+        ImageLoader.load(context, summary.imgsrc, iv);
+
         title.setText(summary.title);
         digest.setText(summary.digest);
         time.setText(summary.ptime);

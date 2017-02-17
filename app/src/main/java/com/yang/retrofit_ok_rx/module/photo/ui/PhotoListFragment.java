@@ -11,12 +11,18 @@ import android.view.View;
 import com.yang.retrofit_ok_rx.R;
 import com.yang.retrofit_ok_rx.annotation.ParamsInfo;
 import com.yang.retrofit_ok_rx.base.BaseFragment;
+import com.yang.retrofit_ok_rx.base.BaseRecyclerViewAdapter;
+import com.yang.retrofit_ok_rx.base.BaseRecyclerViewHolder;
 import com.yang.retrofit_ok_rx.bean.PhotoModel;
 import com.yang.retrofit_ok_rx.module.photo.presenter.IPhotoListPresenter;
 import com.yang.retrofit_ok_rx.module.photo.presenter.IPhotoListPresenterImpl;
 import com.yang.retrofit_ok_rx.module.photo.ui.adapter.PhotoListAdapter;
 import com.yang.retrofit_ok_rx.module.photo.view.IPhotoListView;
+import com.yang.retrofit_ok_rx.utils.EventBus;
+import com.yang.retrofit_ok_rx.widget.ImageInfo;
+import com.yang.retrofit_ok_rx.widget.PhotoView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -65,6 +71,7 @@ public class PhotoListFragment extends BaseFragment<IPhotoListPresenter>
 
     }
 
+
     private void loadPhotos(String id, boolean isRefresh) {
         this.isRefresh = isRefresh;
 //        pageNum = isRefresh ? 1 : pageNum++;
@@ -110,6 +117,33 @@ public class PhotoListFragment extends BaseFragment<IPhotoListPresenter>
                 }
             }
         });
+        adapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseRecyclerViewHolder holder, int position) {
+                doOnItemClick(holder, position);
+            }
+        });
+    }
+
+    private void doOnItemClick(BaseRecyclerViewHolder holder, int position) {
+        List<PhotoModel.PictureBody> list = adapter.getList();
+        //拿当前数据源的所有的url
+        List<String> urlImagesList = new ArrayList<>();
+        for (PhotoModel.PictureBody p : list) {
+            urlImagesList.add(p.getList().get(0).getBig());
+        }
+        //拿当前的Info
+        ImageInfo info = ((PhotoView) holder.getViewById(R.id.item_photo_iv)).getInfo();
+
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList("urls", (ArrayList<String>) urlImagesList);
+        bundle.putParcelable("imageInfo", info);
+        bundle.putInt("index", holder.getAdapterPosition());
+
+
+        EventBus.getDefault().post("viewPageInit", bundle);
+
+
     }
 
     @Override

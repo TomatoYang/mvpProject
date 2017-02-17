@@ -104,7 +104,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     }
 
     private void initFinishObservable() {
-        finishObservable = EventBus.getInstance().register(Const.EXIT_APP, Boolean.class);
+        finishObservable = EventBus.getDefault().register(Const.EXIT_APP, Boolean.class);
         finishObservable.subscribe(new Action1<Boolean>() {
             @Override
             public void call(Boolean isFinish) {
@@ -196,7 +196,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
             if (this instanceof NewsActivity) {
                 Log.e("这是新闻界面", "回退退出");
-                EventBus.getInstance().post(Const.EXIT_APP, true);
+                EventBus.getDefault().post(Const.EXIT_APP, true);
                 return true;
             } else {
                 try {
@@ -228,7 +228,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             mPresenter.onDestroy();
         }
         if (finishObservable != null) {
-            EventBus.getInstance().unRegister(Const.EXIT_APP, finishObservable);
+            EventBus.getDefault().unRegister(Const.EXIT_APP, finishObservable);
         }
 
         ViewUtil.fixInputMethodManagerLeak(this);

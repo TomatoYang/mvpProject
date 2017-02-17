@@ -7,7 +7,7 @@
     android:elevation="15dp"
     >
 
-    <ImageView
+    <com.yang.retrofit_ok_rx.widget.PhotoView
         android:id="@+id/item_photo_iv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
